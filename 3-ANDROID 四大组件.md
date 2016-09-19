@@ -1,10 +1,6 @@
 #### Activity
-推荐阅读 《Android开发群英传》第4章
-推荐阅读《Android开发进阶：从小工到专家》第1章 1.1节 Activity
-推荐阅读《Android开发艺术探索》第1章 Activity的生命周期和启动模式
 
 ##### Activity生命周期
-
 **onStart和onStop是从Activity是否可见这个角度来回调的**
 **onResume和onPause是从Activity是否位于前台这个角度来回调的**
 
@@ -54,8 +50,8 @@ onRestart方法一般是用户行为所导致的，例如按Home键切换到桌�
 设置启动模式既可以使用xml属性`android:launchMode`，也可以使用代码`intent.addFlags()`。**区别在于限定范围不同，前者无法直接为Activity设置FLAG_ACTIVITY_CLEAR_TOP标识，而后者无法为Activity指定singleInstance模式。**
 
 启动模式的深度理解：
-[http://www.jianshu.com/p/cb5c4e5598ed](http://www.jianshu.com/p/cb5c4e5598ed)
-[http://www.jianshu.com/p/e466b6390a7c](http://www.jianshu.com/p/e466b6390a7c)
+[程序员何苦为难程序员 上](http://www.jianshu.com/p/cb5c4e5598ed)
+[程序员何苦为难程序员 下](http://www.jianshu.com/p/e466b6390a7c)
 
 问：当前应用有两个Activity A和B，B的 android:launchMode 设置了singleTask模式，A是默认的standard，那么A startActivity启动B，B会新启一个Task吗？如果不会，那么startActivity的Intent加上FLAG_ACTIVITY_NEW_TASK这个参数会不会呢？
 答：设置了singleTask启动模式的Activity，它在启动的时会先在系统中查看属性值affinity等于它的属性值taskAffinity的任务栈是否存在。如果存在这样的任务栈，它就会在这个任务栈中启动，否则就会在新任务栈中启动。
@@ -271,11 +267,6 @@ BroadcastReceiver的生命周期很短，当它的onReceive方法执行完成后
 
 <u>疑惑：在AndroidManifest文件中给定了 android:process 属性值，但是receiver依然是在应用主进程的主线程中执行的。此外，BroadcastReceiver创建的时候Application并不会再次创建，因为并没有启动新的进程。</u>
 
-##### 参考资料
-[http://www.jianshu.com/p/df7af437e766](http://www.jianshu.com/p/df7af437e766)
-[http://uule.iteye.com/blog/1707341](http://uule.iteye.com/blog/1707341)
-
-
 #### Service
 Service只是在后台运行的一个组件，默认情况下，Service也是运行在app的主线程中的，它并不会开启新的线程或者进程（当然，这个是可以做到的）。所以，假如在Service中执行耗时操作的话，最好在Service中开启子线程处理或者让Service运行在新的进程里面。
 
@@ -364,11 +355,6 @@ Stub中最重要的就是asInterface方法，在这个方法中会判断obj参�
 理解AIDL的白话：两个公司打算合作，但是两个Boss都太忙，合同签署完成之后就交给各自的助理Proxy去代理完成合同的细节问题的商定。
 其中两个Boss分别对应客户端和服务端，合同对应服务的接口，两个代表对应两端的Proxy，代表的通信方式则是电话，而代码的通信方式是Binder。
 
-##### 参考资料
-[http://my.oschina.net/wangjunhe/blog/113286](http://my.oschina.net/wangjunhe/blog/113286)
-[http://android.jobbole.com/84450/](http://android.jobbole.com/84450/)
-[http://www.jianshu.com/p/7a7db9f8692d](http://www.jianshu.com/p/7a7db9f8692d)
-
 #### ContentProvider
 **ContentProvider的作用**
 1.封装数据：对数据进行封装，提供统一的接口
@@ -391,9 +377,16 @@ ContentProvider可以在AndroidManifest.xml中配置一个叫做android:multipro
 
 **一个应用进程有16个Binder线程去和远程服务进行交互，而每个线程可占用的缓存空间是128KB这样，超过会报异常。**
 
-#### 推荐阅读书籍
 
-《Android开发群英传》
-《Android开发进阶：从小工到专家》
-《Android开发艺术探索》
+
+
+#### 参考资料
+1.《Android开发群英传》
+2.《Android开发进阶：从小工到专家》
+3.《Android开发艺术探索》
+4.[Android后台服务 Service](http://my.oschina.net/wangjunhe/blog/113286)
+5.[Android组件 Service研究](http://android.jobbole.com/84450/)
+6.[Android面试一天一题](http://www.jianshu.com/p/7a7db9f8692d)
+7.[用广播来更新UI界面好吗](http://www.jianshu.com/p/df7af437e766)
+8.[Android广播接收器 BroadcastReceiver](http://uule.iteye.com/blog/1707341)
 

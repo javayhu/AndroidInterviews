@@ -17,11 +17,11 @@ static final修饰的字段在Javac时生成ConstantValue属性，在类加载�
 
 **HashMap**
 参考资料
-[http://tech.meituan.com/java-hashmap.html](http://tech.meituan.com/java-hashmap.html)
+[深入理解HashMap](http://tech.meituan.com/java-hashmap.html)
 
 **Java虚拟机**
 参考资料
-[http://www.importnew.com/19946.html](http://www.importnew.com/19946.html)
+[深入Java虚拟机系列](http://www.importnew.com/19946.html)
 
 **重要的类和代码**
 

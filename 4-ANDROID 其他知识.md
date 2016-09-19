@@ -1,16 +1,14 @@
 #### Handler机制
-
 **Message**：消息分为硬件产生的消息(如按钮、触摸)和软件生成的消息；
 **MessageQueue**：消息队列的主要功能向消息池投递消息(MessageQueue.enqueueMessage)和取走消息池的消息(MessageQueue.next)；
 **Handler**：消息辅助类，主要功能向消息池发送各种消息事件(Handler.sendMessage)和处理相应消息事件(Handler.handleMessage)；
 **Looper**：不断循环执行(Looper.loop)，按分发机制将消息分发给目标处理者。
 
-
 Handler容易引起内存泄露的原因：非静态内部类和匿名内部类都持有对外部类的引用。
 [http://droidyue.com/blog/2014/12/28/in-android-handler-classes-should-be-static-or-leaks-might-occur/](http://droidyue.com/blog/2014/12/28/in-android-handler-classes-should-be-static-or-leaks-might-occur/)
 
 如何避免Handler引起的内存泄露？使用静态内部类和弱引用来解决这个问题。
-```
+```java
 private static class MyHandler extends Handler {
 	private final WeakReference<SampleActivity> mActivity;
 
@@ -166,8 +164,6 @@ AnsycTask执行任务时，内部会创建一个进程作用域的线程池来�
 (2)View在主线程中对画面进行刷新，而SurfaceView通常会通过一个子线程来进行页面刷新；
 (3)View在绘图时没有使用双缓冲机制，而SurfaceView在底层实现机制中就已经实现了双缓冲机制。
 
-
-
 #### Android安全机制
 
 五道防线：
@@ -261,34 +257,23 @@ wait()会使线程释放它所持有对象的同步锁，而yield()方法不会�
 CountDownLatch是通过一个计数器来实现的，计数器的初始值为线程的数量。每当一个线程完成了自己的任务后，计数器的值就会减1。当计数器值到达0时，它表示所有的线程已经完成了任务，然后在闭锁上等待的线程就可以恢复执行任务。CountDownLatch的应用场景是主线程希望在负责启动框架服务的线程已经启动所有的框架服务之后再执行。
 
 参考资料
-[http://www.importnew.com/15731.html](http://www.importnew.com/15731.html)
-
+[什么时候使用CountDownLatch](http://www.importnew.com/15731.html)
 
 
 #### APK打包流程
-
+参考资料
 [浅析Android打包流程](http://mp.weixin.qq.com/s?__biz=MzI0NjIzNDkwOA==&mid=2247483789&idx=1&sn=6aed8c7907d5bd9c8a5e7f2c2dcdac2e&scene=1&srcid=0831CCuRJsbJNuz1WxU6uUsI#wechat_redirect)
-
 [Android构建过程分析](http://mp.weixin.qq.com/s?__biz=MzI1NjEwMTM4OA==&mid=2651232113&idx=1&sn=02f413999ab0865e23d272e69b9e6196&scene=1&srcid=0831gT4p6M0NFG5HTTeRHTUC#wechat_redirect)
 
 
-
 #### adb
-
-adb shell dumpsys activity recents
-adb shell dumpsys activity broadcasts
-adb shell dumpsys activity activities
-adb shell dumpsys activity services
-adb shell dumpsys activity providers
-adb shell dumpsys activity permissions
-adb shell dumpsys activity intents
-
-#### 运行时权限
+参考资料
+[Awesome Adb 一份超全超详细的 ADB 用法大全](http://www.jianshu.com/p/e15b02f07ff2)
 
 #### 源码学习
-
 **HandlerThread**
 http://androidxref.com/6.0.0_r1/xref/frameworks/base/core/java/android/os/HandlerThread.java
 
 **AsyncTask**
 http://androidxref.com/6.0.1_r10/xref/frameworks/base/core/java/android/os/AsyncTask.java
+
