@@ -189,6 +189,7 @@ sendBroadcast，无序广播，会异步的发送给所有的Receiver，接收�
 sendOrderBroadcast，有序广播，广播会先发送给优先级高的Receiver，而且这个Receiver有权决定是继续发送到下一个Receiver或者是直接终止广播。
 
 BroadcastReceiver优先级的设置是通过receiver的IntentFilter中的android:process 属性来设置，数值越大优先级越高。
+
 ```
 <receiver android:name="xxx">
     <intent-filter android:priority="100">
@@ -205,7 +206,7 @@ sendStickyBroadcast，此方法发送的广播会一直滞留，当有匹配此�
 
 LocalBroadcastManager的实现原理是使用Handler往主线程的消息池（Message Queue）发送消息，只有主线程的Handler可以分发处理它，广播发送的内容是一个Intent对象，我们可以直接用Message封装一下，留一个和sendBroadcast一样的接口。在handleMessage时把Intent对象传递给已注册的Receiver。
 
-```
+```java
 //LocalBroadcastManager的构造方法，创建了一个Handler
 private LocalBroadcastManager(Context context) {
     mAppContext = context;
@@ -303,7 +304,7 @@ Service的onStartCommand()方法的返回值是一个整数，取值必须是这
 ##### 前台service
 前台service可以调用startForeground方法来实现，通常在该方法中需要指定一个不间断的Notification，这个Notification存在的时间与跑在前台的Service相同，当然也可以不显示这个Notification。
 
-```
+```java
 private void startForeground() {
    Intent monitorIntent = new Intent(this, WukongMonitorActivity.class);
    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, monitorIntent, 0);
@@ -320,7 +321,8 @@ private void startForeground() {
 IntentService源码：[http://androidxref.com/6.0.0_r1/xref/frameworks/base/core/java/android/app/IntentService.java](http://androidxref.com/6.0.0_r1/xref/frameworks/base/core/java/android/app/IntentService.java)
 
 IntentService的特点是同步地接收多个start请求，一个接一个地处理它们，并且IntentService里面处理start请求的是在一个独立的线程里进行的，所以可以用来执行耗时的操作而不影响主线程中UI的绘制。使用的时候只需要实现onHandleIntent()方法来接收其它组件传递过来的Intent对象就可以了。IntentService的实现原理是 HandlerThread + Looper + Handler，主要代码如下：
-```
+
+```java
 //onCreate
 HandlerThread thread = new HandlerThread("IntentService[" + mName + "]");
 thread.start();
@@ -376,8 +378,6 @@ ContentProvider可以在AndroidManifest.xml中配置一个叫做android:multipro
 答：**ContentResolver虽然是通过Binder进程间通信机制打通了应用程序之间共享数据的通道，但Content Provider组件在不同应用程序之间传输数据是基于匿名共享内存机制来实现的。**
 
 **一个应用进程有16个Binder线程去和远程服务进行交互，而每个线程可占用的缓存空间是128KB这样，超过会报异常。**
-
-
 
 
 #### 参考资料

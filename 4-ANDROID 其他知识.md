@@ -28,7 +28,6 @@ private static class MyHandler extends Handler {
 private final MyHandler mHandler = new MyHandler(this);
 ```
 
-
 #### Parcelable
 Serializable和Parcelable的区别
 **Serializalbe会使用反射，序列化和反序列化过程需要大量I/O操作。Parcelable自已实现封送和解封（marshalled &unmarshalled）操作不需要用反射，数据也存放在Native内存中，效率要快很多。**
@@ -38,13 +37,12 @@ Parcelable和Parcel的区别
 
 Activity之间传递参数时要注意对象的大小，Intent中的Bundle是在使用Binder机制进行数据传递的，能使用的Binder的缓冲区是有大小限制的（有些手机是2M），而一个进程默认有16个binder线程，所以一个线程能占用的缓冲区就更小了（以前做过测试，大约一个线程可以占用128KB），所以当看到“The Binder transaction failed because it was too large.” 这类TransactionTooLargeException异常时就说明传递的参数太大了，需要精简。使用Intent在Activity之间传递List和Bitmap对象是有风险的。
 
-参考资料
+参考资料    
 [http://www.jianshu.com/p/be593134eeae](http://www.jianshu.com/p/be593134eeae)
 
 #### ListView
 
-##### ListView的优化
-
+**ListView的优化**
 问：getView的执行时间应该控制在多少以内？
 答：1秒之内屏幕可以完成30帧的绘制，这样人看起来会觉得比较流畅（苹果手机是接近60帧，高于60之后人眼也无法分辨）。每帧可使用的时间：1000ms/30 = 33.33 ms
 每个ListView一般要显示6个ListItem，加上1个重用convertView：33.33ms/7 = 4.76ms
@@ -69,7 +67,7 @@ Activity之间传递参数时要注意对象的大小，Intent中的Bundle是在
 android:scrollingCache="false" 
 android:animationCache="false"
 
-参考资料
+参考资料    
 [http://www.jianshu.com/p/8fd5fa90ee6c](http://www.jianshu.com/p/8fd5fa90ee6c)
 [http://www.kymjs.com/code/2015/04/28/01/](http://www.kymjs.com/code/2015/04/28/01/)
 
@@ -125,6 +123,8 @@ drawable文件夹是存放一些xml(如selector)和图片，Android会根据设�
 
 #### Bitmap
 
+推荐阅读[Android官方培训课程中文版](http://hukai.me/android-training-course-in-chinese/index.html)中的Android图像和动画这章的`高效显示Bitmap`这节。
+
 **Bitmap 和 Drawable**
 Bitmap代表的是图片资源在内存中的数据结构，如它的像素数据，长宽等属性都存放在Bitmap对象中。**Bitmap类的构造函数是私有的，只能是通过JNI实例化，系统提供BitmapFactory工厂类给我们从从File、Stream和byte[]创建Bitmap的方式**。
 
@@ -154,7 +154,7 @@ AnsycTask执行任务时，内部会创建一个进程作用域的线程池来�
 **AsyncTask容易引发的Activity内存泄露**
 如果AsyncTask被声明为Activity的非静态内部类，那么AsyncTask会保留一个对创建了AsyncTask的Activity的引用。如果Activity已经被销毁，AsyncTask的后台线程还在执行，它将继续在内存里保留这个引用，导致Activity无法被回收，引起内存泄露。
 
-参考资料
+参考资料  
 [http://www.jianshu.com/p/c925b3ea1444](http://www.jianshu.com/p/c925b3ea1444)
 
 #### SurfaceView
@@ -173,7 +173,6 @@ AnsycTask执行任务时，内部会创建一个进程作用域的线程池来�
 (3)应用签名机制——数字证书：系统不会安装没有签名的app，只有拥有相同数字签名的app才会在升级时被认为是同一个app。
 (4)Linux内核层安全机制——Uid、访问权限控制
 (5)Android虚拟机沙箱机制——沙箱隔离：每个app运行在单独的虚拟机中，与其他应用完全隔离
-
 
 
 #### 进程
@@ -219,7 +218,7 @@ public String getProcessName(Context cxt, int pid) {
 }
 ```
 
-http://www.android100.org/html/201506/20/156136.html
+[http://www.android100.org/html/201506/20/156136.html](http://www.android100.org/html/201506/20/156136.html)
 
 提高进程优先级的方法：
 ①进程要运行一个组件，不要是空进程；
@@ -242,6 +241,7 @@ private void keepAlive() {
 
 
 #### 线程
+
 线程是CPU调度的基本单元，一个应用都有一个主线程负责处理消息。一个应用启动后，至少会有3个线程，一个主线程（UI线程）和2个Binder线程。Zygote进程（APK所在的进程是由Zygote进程Fork出来的）还会产生有一些Daemon线程如：ReferenceQueueDaemon、FinalizerDaemon、FinalizerWatchdogDaemon、HeapTaskDaemon，从名字大家也可以对它们的用途猜出一二。
 
 **wait/notify/notifyAll**
@@ -259,21 +259,42 @@ CountDownLatch是通过一个计数器来实现的，计数器的初始值为线
 参考资料
 [什么时候使用CountDownLatch](http://www.importnew.com/15731.html)
 
-
 #### APK打包流程
-参考资料
+
+参考资料  
 [浅析Android打包流程](http://mp.weixin.qq.com/s?__biz=MzI0NjIzNDkwOA==&mid=2247483789&idx=1&sn=6aed8c7907d5bd9c8a5e7f2c2dcdac2e&scene=1&srcid=0831CCuRJsbJNuz1WxU6uUsI#wechat_redirect)
 [Android构建过程分析](http://mp.weixin.qq.com/s?__biz=MzI1NjEwMTM4OA==&mid=2651232113&idx=1&sn=02f413999ab0865e23d272e69b9e6196&scene=1&srcid=0831gT4p6M0NFG5HTTeRHTUC#wechat_redirect)
 
 
+**Binder机制**
+
+[Gityuan在知乎上的回答：为什么 Android 要采用 Binder 作为 IPC 机制](https://www.zhihu.com/question/39440766/answer/89210950)
+
+部分摘录：
+1. **管道：**在创建时分配一个page大小的内存，缓存区大小比较有限；
+2. **消息队列**：信息复制两次，额外的CPU消耗；不合适频繁或信息量大的通信；
+3. **共享内存**：无须复制，共享缓冲区直接付附加到进程虚拟地址空间，速度快；但进程间的同步问题操作系统无法实现，必须各进程利用同步工具解决；
+4. **套接字**：作为更通用的接口，传输效率低，主要用于不通机器或跨网络的通信；
+5. **信号量**：常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。
+6. **信号**: 不适用于信息交换，更适用于进程中断控制，比如非法内存访问，杀死某个进程等；
+
+
 #### adb
-参考资料
+
+参考资料  
 [Awesome Adb 一份超全超详细的 ADB 用法大全](http://www.jianshu.com/p/e15b02f07ff2)
 
+#### 开源库学习
+
+**Volley**
+[Volley源码解析](http://codekk.com/open-source-project-analysis/detail/Android/grumoon/Volley%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90)
+
+
 #### 源码学习
+
 **HandlerThread**
-http://androidxref.com/6.0.0_r1/xref/frameworks/base/core/java/android/os/HandlerThread.java
+[查看源码](http://androidxref.com/6.0.0_r1/xref/frameworks/base/core/java/android/os/HandlerThread.java)
 
 **AsyncTask**
-http://androidxref.com/6.0.1_r10/xref/frameworks/base/core/java/android/os/AsyncTask.java
+[查看源码](http://androidxref.com/6.0.1_r10/xref/frameworks/base/core/java/android/os/AsyncTask.java)
 
