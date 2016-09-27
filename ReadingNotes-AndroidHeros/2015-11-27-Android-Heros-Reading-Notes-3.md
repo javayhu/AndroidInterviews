@@ -13,7 +13,7 @@ date: 2015-11-27 10:21:56
 PPI(Pixels Per Inch)：即DPI(Dots Per Inch)，它是对角线的像素点数除以屏幕大小得到的；
 系统屏幕密度：android系统定义了几个标准的DPI值作为手机的固定DPI。
 **注：下图中有两处笔误，hdpi应该是480x800，xxhdpi应该是1080x1920**
-![img](/images/androidheros_dpi.png)
+![img](https://hujiaweibujidao.github.io/images/androidheros_dpi.png)
 独立像素密度(DP)：android系统使用mdpi屏幕作为标准，在这个屏幕上1dp=1px，其他屏幕可以通过比例进行换算。在hdpi中，1dp=1.5px。在xhdpi中，1dp=2px。在xxhdpi中，1dp=3px。
 单位转换：常用的单位转换的辅助类DisplayUtil
 ```
@@ -281,7 +281,7 @@ protected void onDraw(Canvas canvas) {
 ```
 
 仪表盘和Layer图层效果如下：
-{% img /images/androidheros_canvas.png 200 360 %} &nbsp;&nbsp; {% img /images/androidheros_layer.png 200 360 %}
+{% img https://hujiaweibujidao.github.io/images/androidheros_canvas.png 200 360 %} &nbsp;&nbsp; {% img https://hujiaweibujidao.github.io/images/androidheros_layer.png 200 360 %}
 
 5.Android图像处理 **[TODO：该部分略过了，自己暂时用的比较少，等需要用的时候学习下再补充]**
 色彩特效处理、图形特效处理、画笔特效处理

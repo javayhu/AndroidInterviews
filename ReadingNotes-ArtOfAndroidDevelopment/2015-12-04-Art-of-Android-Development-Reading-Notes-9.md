@@ -18,7 +18,7 @@ date: 2015-12-05 11:50:54
 
 #### 9.2 Activity的工作过程
 (1)Activity启动的大致流程
-![img](/images/androidart_activity.png)
+![img](https://hujiaweibujidao.github.io/images/androidart_activity.png)
 (2)`ApplicationThread`是`ActivityThread`的一个内部类，它继承自`ApplicationThreadNative`，而`ApplicationThreadNative`继承自`Binder`并实现了`IApplicationThread`接口，`ApplicationThreadNative`的作用其实就和系统为AIDL文件生成的类是一样的。
 (3)`ActivityManagerService`(AMS)继承自`ActivityManagerNative`，而`ActivityManagerNative`继承自`Binder`并实现了`IActivityManager`这个Binder接口，因此AMS也是一个Binder。
 (4)一个应用只有一个Application对象，它的创建也是通过`Instrumentation`来完成的，这个过程和Activity对象的创建过程一样，都是通过类加载器来实现的。
@@ -27,16 +27,16 @@ date: 2015-12-05 11:50:54
 #### 9.3 Service的工作过程
 (1)Service有两种状态：启动状态和绑定状态，两种状态是可以共存的。
 启动过程：
-![img](/images/androidart_service1.png)
+![img](https://hujiaweibujidao.github.io/images/androidart_service1.png)
 绑定过程：
-![img](/images/androidart_service2.png)
+![img](https://hujiaweibujidao.github.io/images/androidart_service2.png)
 
 #### 9.4 BroadcastReceiver的工作过程
 (1)BroadcastReceiver的工作过程包括广播注册过程、广播发送和接收过程。
 注册过程：静态注册的时候是由`PackageManagerService`来完成整个注册过程，下面是动态注册的过程
-![img](/images/androidart_broadcastreceiver1.png)
+![img](https://hujiaweibujidao.github.io/images/androidart_broadcastreceiver1.png)
 发送和接收过程：
-![img](/images/androidart_broadcastreceiver1.png)
+![img](https://hujiaweibujidao.github.io/images/androidart_broadcastreceiver1.png)
 (2)广播的发送有几种类型：普通广播、有序广播和粘性广播，有序广播和粘性广播与普通广播相比具有不同的特性，但是发送和接收过程是类似的。
 (3)一个应用处于停止状态分为两种情况：一是应用安装后未运行；二是应用被手动或者其他应用强停了。从Android 3.1开始，处于停止状态的应用无法接受到开机广播。
 
@@ -49,7 +49,7 @@ date: 2015-12-05 11:50:54
 4.`handleBindApplication`方法会创建Application对象并加载ContentProvider，注意是先加载ContentProvider，然后调用Application的`onCreate`方法。
 (3)ContentProvider的`android:multiprocess`属性决定它是否是单实例，默认值是false，也就是默认是单实例。当设置为true时，每个调用者的进程中都存在一个ContentProvider对象。
 (4)当调用ContentProvider的`insert`、`delete`、`update`、`query`方法中的任何一个时，如果ContentProvider所在的进程没有启动的话，那么就会触发ContentProvider的创建，并伴随着ContentProvider所在进程的启动。下图是ContentProvider的query操作的大致过程：
-![img](/images/androidart_contentprovider.png)
+![img](https://hujiaweibujidao.github.io/images/androidart_contentprovider.png)
 
 详细的过程分析建议阅读原书，简直精彩！
 
@@ -57,3 +57,5 @@ date: 2015-12-05 11:50:54
 1.[Android开发艺术探索读书笔记（三）](http://blog.csdn.net/amurocrash/article/details/48858353)
 
 OK，本章结束，谢谢阅读。
+
+

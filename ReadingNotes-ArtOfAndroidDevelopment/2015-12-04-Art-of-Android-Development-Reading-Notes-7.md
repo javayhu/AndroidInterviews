@@ -6,7 +6,7 @@ date: 2015-11-30 21:50:54
 ---
 《Android开发艺术探索》读书笔记 (7) 第7章 Android动画深入分析 <!--more-->
 
-本节和《Android群英传》中的**第七章Android动画机制与使用技巧**有关系，[建议先阅读该章的总结](/blog/2015/11/27/Android-Heros-Reading-Notes-3/)
+本节和《Android群英传》中的**第七章Android动画机制与使用技巧**有关系，[建议先阅读该章的总结](https://hujiaweibujidao.github.io/blog/2015/11/27/Android-Heros-Reading-Notes-3/)
 
 ### 第7章 Android动画深入分析
 #### 7.1 View动画
@@ -40,7 +40,7 @@ listView.setLayoutAnimation(controller);
 
 (2)Activity切换效果
 在startActivity方法后或者finish方法之后调用`overridePendingTransition(int inAnim, int outAnim)`方法设置进入或者退出的动画效果。
-还有其他方式可以给Activity添加切换动画效果，但是往往有兼容性限制，参见[《Android群英传》第七章Android动画机制与使用技巧](/blog/2015/11/27/Android-Heros-Reading-Notes-3/)。
+还有其他方式可以给Activity添加切换动画效果，但是往往有兼容性限制，参见[《Android群英传》第七章Android动画机制与使用技巧](https://hujiaweibujidao.github.io/blog/2015/11/27/Android-Heros-Reading-Notes-3/)。
 
 #### 7.3 属性动画
 (1)属性动画可以对任意对象的属性进行动画而不仅仅是view，动画默认的时间间隔是`300ms`，默认帧率是`10ms/帧`。
@@ -70,3 +70,5 @@ listView.setLayoutAnimation(controller);
 2.[Android样式的开发:Property Animation篇](http://keeganlee.me/post/android/20151026)
 
 OK，本章结束，谢谢阅读。
+
+

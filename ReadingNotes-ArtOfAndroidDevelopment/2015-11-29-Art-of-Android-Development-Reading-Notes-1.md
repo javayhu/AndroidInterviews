@@ -6,7 +6,7 @@ date: 2015-11-29 23:07:49
 ---
 《Android开发艺术探索》读书笔记 (1) 第1章 Activity的生命周期和启动模式 <!--more-->
 
-本节和《Android群英传》中的**第8章Activity和Activity调用栈分析**有关系，[建议先阅读该章的总结](/blog/2015/11/28/Android-Heros-Reading-Notes-4/)
+本节和《Android群英传》中的**第8章Activity和Activity调用栈分析**有关系，[建议先阅读该章的总结](https://hujiaweibujidao.github.io/blog/2015/11/28/Android-Heros-Reading-Notes-4/)
 
 ### **第1章 Activity的生命周期和启动模式**
 #### 1.1 Activity生命周期全面分析

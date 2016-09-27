@@ -6,7 +6,7 @@ date: 2015-11-30 11:50:54
 ---
 《Android开发艺术探索》读书笔记 (6) 第6章 Android的Drawable <!--more-->
 
-本节和《Android群英传》中的**第六章Android绘图机制与处理技巧**有关系，[建议先阅读该章的总结](/blog/2015/11/27/Android-Heros-Reading-Notes-3/)
+本节和《Android群英传》中的**第六章Android绘图机制与处理技巧**有关系，[建议先阅读该章的总结](https://hujiaweibujidao.github.io/blog/2015/11/27/Android-Heros-Reading-Notes-3/)
 
 ### 第6章 Android的Drawable
 #### 6.1 Drawable简介
@@ -144,3 +144,5 @@ drawable.startTransition(5000);
 5.[Android样式的开发:Style篇](http://keeganlee.me/post/android/20151031)
 
 OK，本章结束，谢谢阅读。
+
+

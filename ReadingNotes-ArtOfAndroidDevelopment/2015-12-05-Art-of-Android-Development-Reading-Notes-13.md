@@ -109,7 +109,7 @@ Activity的资源访问是通过`ContextImpl`来完成的，它有两个方法`g
 ### 第14章 JNI和NDK编程
 
 本章主要是介绍JNI和NDK编程入门知识，比较简答，略过不总结。
-如果感兴趣NDK开发可以阅读我之前总结的[Android NDK和OpenCV整合开发系列文章](/blog/2013/11/18/android-ndk-and-opencv-developement/)。
+如果感兴趣NDK开发可以阅读我之前总结的[Android NDK和OpenCV整合开发系列文章](https://hujiaweibujidao.github.io/blog/2013/11/18/android-ndk-and-opencv-developement/)。
 
 <be/>
 ### 第15章 Android性能优化
@@ -143,10 +143,10 @@ Activity的资源访问是通过`ContextImpl`来完成的，它有两个方法`g
 
 (6)ListView和Bitmap优化
 1.ListView优化：采用`ViewHolder`并避免在`getView`方法中执行耗时操作；根据列表的滑动状态来绘制任务的执行频率；可以尝试开启硬件加速来使ListView的滑动更加流畅。
-2.Bitmap优化：根据需要对图片进行采样，详情看[Android开发艺术探索》读书笔记 (12) 第12章 Bitmap的加载和Cache](/blog/2015/11/30/Art-of-Android-Development-Reading-Notes-12/)。
+2.Bitmap优化：根据需要对图片进行采样，详情看[Android开发艺术探索》读书笔记 (12) 第12章 Bitmap的加载和Cache](https://hujiaweibujidao.github.io/blog/2015/11/30/Art-of-Android-Development-Reading-Notes-12/)。
 
 (7)线程优化
-1.采用线程池，详情看[《Android开发艺术探索》读书笔记 (11) 第11章 Android的线程和线程池](/blog/2015/12/03/Art-of-Android-Development-Reading-Notes-11/)。
+1.采用线程池，详情看[《Android开发艺术探索》读书笔记 (11) 第11章 Android的线程和线程池](https://hujiaweibujidao.github.io/blog/2015/12/03/Art-of-Android-Development-Reading-Notes-11/)。
 
 (8)其他优化建议
 1.不要过多使用枚举，枚举占用的内存空间要比整型大；
@@ -159,3 +159,5 @@ Activity的资源访问是通过`ContextImpl`来完成的，它有两个方法`g
 (9)MAT是功能强大的内存分析工具，主要有`Histograms`和`Dominator Tree`等功能
 
 OK，本章结束，谢谢阅读。
+
+

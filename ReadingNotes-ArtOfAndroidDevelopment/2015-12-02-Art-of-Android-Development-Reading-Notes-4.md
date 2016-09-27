@@ -6,7 +6,7 @@ date: 2015-12-01 14:50:54
 ---
 《Android开发艺术探索》读书笔记 (4) 第4章 View的工作原理 <!--more-->
 
-本节和《Android群英传》中的**第3章Android控件架构与自定义控件详解**有关系，[建议先阅读该章的总结](/blog/2015/11/26/Android-Heros-Reading-Notes-2/)
+本节和《Android群英传》中的**第3章Android控件架构与自定义控件详解**有关系，[建议先阅读该章的总结](https://hujiaweibujidao.github.io/blog/2015/11/26/Android-Heros-Reading-Notes-2/)
 
 ### 第4章 View的工作原理
 #### 4.1 初始ViewRoot和DecorView

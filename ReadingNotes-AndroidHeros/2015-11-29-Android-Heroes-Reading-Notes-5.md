@@ -266,7 +266,7 @@ animated-selector是一个状态改变的动画效果selector，MD中很多控�
 ```
 
 (8)Toolbar
-Toolbar和ActionBar以前灰常详细地介绍过，此处略过不总结，[点击这里查看](/blog/2015/06/02/android-ui-2-toolbar/)。
+Toolbar和ActionBar以前灰常详细地介绍过，此处略过不总结，[点击这里查看](https://hujiaweibujidao.github.io/blog/2015/06/02/android-ui-2-toolbar/)。
 
 (9)Notification
 Android 5.x改进了通知栏，优化了Notification，现在共有三种类型的Notification：
@@ -333,7 +333,7 @@ public void headsupNotify(View view) {
 ```
 显示效果如下：
 
-{% img /images/androidheros_basicnotification.png 200 360 %} {% img /images/androidheros_collapsenotification.png 200 360 %} {% img /images/androidheros_headsupnotification.png 200 360 %}
+{% img https://hujiaweibujidao.github.io/images/androidheros_basicnotification.png 200 360 %} {% img https://hujiaweibujidao.github.io/images/androidheros_collapsenotification.png 200 360 %} {% img https://hujiaweibujidao.github.io/images/androidheros_headsupnotification.png 200 360 %}
 
 **通知的显示等级**
 Android 5.x将通知分为了三个等级：

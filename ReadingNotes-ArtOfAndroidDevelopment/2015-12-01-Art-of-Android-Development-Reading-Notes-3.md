@@ -6,7 +6,7 @@ date: 2015-12-01 10:50:54
 ---
 《Android开发艺术探索》读书笔记 (3) 第3章 View的事件体系 <!--more-->
 
-本节和《Android群英传》中的**第五章Scroll分析**有关系，[建议先阅读该章的总结](/blog/2015/11/26/Android-Heros-Reading-Notes-2/)
+本节和《Android群英传》中的**第五章Scroll分析**有关系，[建议先阅读该章的总结](https://hujiaweibujidao.github.io/blog/2015/11/26/Android-Heros-Reading-Notes-2/)
 
 ### 第3章 View的事件体系
 #### 3.1 View基本知识
@@ -38,14 +38,14 @@ mVelocityTracker.clear(); //一般在MotionEvent.ACTION_UP的时候调用
 mVelocityTracker.recycle(); //一般在onDetachedFromWindow中调用
 ```
 (6)`GestureDetector`用于辅助检测用户的单击、滑动、长按、双击等行为。GestureDetector的使用比较简单，主要也是辅助检测常见的触屏事件。**作者建议：如果只是监听滑动相关的事件在onTouchEvent中实现；如果要监听双击这种行为的话，那么就使用GestureDetector。**
-(7)`Scroller`分析：详细内容可以参见[《Android群英传》读书笔记 (2) 第五章 Scroll分析](/blog/2015/11/26/Android-Heros-Reading-Notes-2/)
+(7)`Scroller`分析：详细内容可以参见[《Android群英传》读书笔记 (2) 第五章 Scroll分析](https://hujiaweibujidao.github.io/blog/2015/11/26/Android-Heros-Reading-Notes-2/)
 
 #### 3.2 View的滑动
 (1)常见的实现view的滑动的方式有三种：
 第一种是通过view本身提供的scrollTo和scrollBy方法：操作简单，适合对view内容的滑动；
 第二种是通过动画给view施加平移效果来实现滑动：操作简单，适用于没有交互的view和实现复杂的动画效果；
 第三种是通过改变view的LayoutParams使得view重新布局从而实现滑动：操作稍微复杂，适用于有交互的view。
-以上三种方法的详情可以参考阅读[《Android群英传》读书笔记 (2)](/blog/2015/11/26/Android-Heros-Reading-Notes-2/)中的内容，此处不再细述。
+以上三种方法的详情可以参考阅读[《Android群英传》读书笔记 (2)](https://hujiaweibujidao.github.io/blog/2015/11/26/Android-Heros-Reading-Notes-2/)中的内容，此处不再细述。
 (2)**scrollTo和scrollBy方法只能改变view内容的位置而不能改变view在布局中的位置。** scrollBy是基于当前位置的相对滑动，而scrollTo是基于所传参数的绝对滑动。通过View的`getScrollX`和`getScrollY`方法可以得到滑动的距离。
 (3)使用动画来移动view主要是操作view的translationX和translationY属性，既可以使用传统的view动画，也可以使用属性动画，使用后者需要考虑兼容性问题，如果要兼容Android 3.0以下版本系统的话推荐使用[nineoldandroids](http://nineoldandroids.com/)。
 使用动画还存在一个交互问题：**在android3.0以前的系统上，view动画和属性动画，新位置均无法触发点击事件，同时，老位置仍然可以触发单击事件。从3.0开始，属性动画的单击事件触发位置为移动后的位置，view动画仍然在原位置。**
@@ -179,3 +179,5 @@ public boolean dispatchTouchEvent(MotionEvent event) {
 书中对这两种拦截法写了两个例子，感兴趣阅读源码看下，[外部拦截法使用示例链接](https://github.com/singwhatiwanna/android-art-res/blob/master/Chapter_3/src/com/ryg/chapter_3/ui/HorizontalScrollViewEx.java)和[内部拦截法使用示例链接](https://github.com/singwhatiwanna/android-art-res/blob/master/Chapter_3/src/com/ryg/chapter_3/ui/ListViewEx.java)。
 
 OK，本章结束，谢谢阅读。
+
+

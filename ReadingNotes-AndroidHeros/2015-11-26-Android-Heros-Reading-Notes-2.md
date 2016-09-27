@@ -11,7 +11,7 @@ date: 2015-11-26 19:57:34
 下图是UI界面架构图，每个Activity都有一个Window对象，通常是由PhoneWindow类来实现的。
 PhoneWindow将DecorView作为整个应用窗口的根View，DecorView将屏幕分成两部分：TitleView和ContentView。
 ContentView实际上是一个FrameLayout，里面容纳的就是我们在xml布局文件中定义的布局。
-![img](/images/androidheros_ui.png)
+![img](https://hujiaweibujidao.github.io/images/androidheros_ui.png)
 
 **为什么调用requestWindowFeature()方法一定要在setContentView()方法调用之前？**
 当程序在onCreate()方法中调用setContentView()方法后，ActivityManagerService会回调onResume()方法，此时系统才会将整个DecorView添加到PhoneWindow中，并让其显示出来，从而完成界面的绘制。如果requestWindowFeature是在setContentView之后调用的话，设置就不会生效了。
@@ -365,7 +365,7 @@ mListView.getFirstVisiblePosition();//获取可视区域第一个item的id
 ### **第五章 Android Scroll分析**
 1.获取坐标值的各种方法
 图片来自[Android中的坐标系以及获取坐标的方法](http://www.linuxidc.com/Linux/2015-11/125391.htm)
-![img](/images/coordination.jpg)
+![img](https://hujiaweibujidao.github.io/images/coordination.jpg)
 
 2.实现滑动的基本思想
 当触摸view时，系统记下当前触摸点坐标；当手指移动时，系统记下移动后的触摸点坐标，从而获取到相对于前一次坐标点的偏移量，并通过偏移量来修改view的坐标，这样不断重复，从而实现滑动过程。

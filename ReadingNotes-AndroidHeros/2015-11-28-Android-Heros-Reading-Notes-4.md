@@ -9,9 +9,9 @@ date: 2015-11-28 13:48:34
 ### **第八章 Activity和Activity调用栈分析**
 1.Activity生命周期
 理解生命周期就是两张图：第一张图是回字型的生命周期图
-{% img /images/androidheros_activitylife1.png 280 340 %}
+{% img https://hujiaweibujidao.github.io/images/androidheros_activitylife1.png 280 340 %}
 第二张图是金字塔型的生命周期图
-{% img /images/androidheros_activitylife2.png 350 150%}
+{% img https://hujiaweibujidao.github.io/images/androidheros_activitylife2.png 350 150%}
 
 **注意点**
 (1)从stopped状态重新回到前台状态的时候会先调用`onRestart`方法，然后再调用后续的`onStart`等方法；

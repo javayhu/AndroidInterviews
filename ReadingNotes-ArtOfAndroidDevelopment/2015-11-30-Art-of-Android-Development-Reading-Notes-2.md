@@ -139,7 +139,7 @@ Socket是网络通信中“套接字”的概念，分为流式套接字和用�
 
 #### 2.6 选用合适的IPC方式
 
-![img](/images/androidart_ipc.png)
+![img](https://hujiaweibujidao.github.io/images/androidart_ipc.png)
 
 OK，本章结束，谢谢阅读。
 
