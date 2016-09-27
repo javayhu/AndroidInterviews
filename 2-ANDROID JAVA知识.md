@@ -1,5 +1,10 @@
 **多线程**
 
+**Callable和Runnable**
+
+参考资料
+[Java并发编程：Callable、Future和FutureTask](http://www.cnblogs.com/dolphin0520/p/3949310.html)
+
 **ReentrantLock**
 
 **BlockingQueue**

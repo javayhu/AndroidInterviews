@@ -14,7 +14,9 @@
 6. 程序员面试金典：国外的经典面试书    
 7. Android面试题一天一题：[@goeasyway 总结的Android面试题](http://www.jianshu.com/users/f9fbc7a39b36)
 
-PS：千万记得要去刷[LeetCode](https://leetcode.com/)！在此特别感谢戴方勤和唐磊总结的题解(对应`leetcode-cpp.pdf`和`leetcode-java.pdf`两份文档)   
+
+PS：千万记得要去刷[LeetCode](https://leetcode.com/)！  
+在此特别感谢戴方勤和唐磊总结的题解(对应`leetcode-cpp.pdf`和`leetcode-java.pdf`两份文档)   
 PPS：推荐下[九章算法](http://www.jiuzhang.com/)，一个不错的在线刷题和算法交流的网站，推荐关注他们的公众号(九章算法)    
 PPPS：算法主要掌握搜索、排序、递归、分治、回溯、贪心、动规等常见的算法思想，并结合数组、字符串、树等类型的题目进行练习就好。常见数据结构和算法的总结可以考虑阅读我之前总结的[数据结构与算法系列文章](http://hujiaweibujidao.github.io/python/)   
 
