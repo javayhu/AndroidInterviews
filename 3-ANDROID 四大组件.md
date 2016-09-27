@@ -173,7 +173,8 @@ data的下面两种写法作用是一样的：
 ```
 
 ##### Activity的启动流程
-![img](/images/androidart_activity.png)
+
+参见Android开发艺术探索的读书笔记
 
 Instrumentation会对将启动的Activity进行检查
 AMS是ActivityManagerNative的子类，继承自Binder，并实现了IActivityManager接口
@@ -284,6 +285,10 @@ Service更像是一个独立的服务，一个Service除了被自身的app组件
 
 *同一个Service的类在android中可以有多个实例吗？*
 答：不可以。Service的启动模式决定它不会在系统中存在多个实例，当有新的Intent传递过来的时候，android系统会直接使用已经存在的Service实例而不会重新创建，所以**在android系统中的Service都是单例的**。
+
+##### service的生命周期
+
+![img](images/service_lifecycle.png)
 
 ##### service的回收和重建
 Android系统中，当剩余内存紧急的时候，系统为了保证用户正在进行的工作正常进行以及系统关键的功能能够正常工作，会对已经使用的内存进行部分回收，并把那些不再重要的进程、Activity实例、Service实例等进行销毁，所以用户的Service是随时可能被回收的。
