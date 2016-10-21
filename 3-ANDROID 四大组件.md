@@ -187,7 +187,7 @@ ActivityThread将创建新Activity的对象并启动它
 sendBroadcast，无序广播，会异步的发送给所有的Receiver，接收到广播的顺序是不确定的，有可能是同时。
 
 **Ordered broadcasts**
-sendOrderBroadcast，有序广播，广播会先发送给优先级高的Receiver，而且这个Receiver有权决定是继续发送到下一个Receiver或者是直接终止广播。
+sendOrderedBroadcast，有序广播，广播会先发送给优先级高的Receiver，而且这个Receiver有权决定是继续发送到下一个Receiver还是直接终止广播。
 
 BroadcastReceiver优先级的设置是通过receiver的IntentFilter中的android:process 属性来设置，数值越大优先级越高。
 
@@ -323,7 +323,7 @@ private void startForeground() {
 ```
 
 ##### IntentService
-IntentService源码：[http://androidxref.com/6.0.0_r1/xref/frameworks/base/core/java/android/app/IntentService.java](http://androidxref.com/6.0.0_r1/xref/frameworks/base/core/java/android/app/IntentService.java)
+源码 [http://androidxref.com/6.0.0_r1/xref/frameworks/base/core/java/android/app/IntentService.java](http://androidxref.com/6.0.0_r1/xref/frameworks/base/core/java/android/app/IntentService.java)
 
 IntentService的特点是同步地接收多个start请求，一个接一个地处理它们，并且IntentService里面处理start请求的是在一个独立的线程里进行的，所以可以用来执行耗时的操作而不影响主线程中UI的绘制。使用的时候只需要实现onHandleIntent()方法来接收其它组件传递过来的Intent对象就可以了。IntentService的实现原理是 HandlerThread + Looper + Handler，主要代码如下：
 
@@ -356,11 +356,10 @@ private final class ServiceHandler extends Handler {
 
 推荐阅读《Android开发进阶：从小工到专家》第一章 1.3节，下面摘录其中的部分重要内容
 
-aidl工具自动生成的接口中有两个重要的类Stub和Proxy，两者都实现了AIDL定义的接口类型。
+**aidl工具自动生成的接口中有两个重要的类Stub和Proxy，两者都实现了AIDL定义的接口类型。**
 Stub中最重要的就是asInterface方法，在这个方法中会判断obj参数的类型，如果obj是本地的接口类型，则认为不是进程间调用，此时将该obj转换成接口类型；否则会通过自动生成另一个内部类Proxy来包装obj，将其赋值给Proxy中的mRemote字段。Proxy类也实现了接口，但是它是通过Binder机制来与远程进程进行交互。
 
-理解AIDL的白话：两个公司打算合作，但是两个Boss都太忙，合同签署完成之后就交给各自的助理Proxy去代理完成合同的细节问题的商定。
-其中两个Boss分别对应客户端和服务端，合同对应服务的接口，两个代表对应两端的Proxy，代表的通信方式则是电话，而代码的通信方式是Binder。
+理解AIDL的白话：两个公司打算合作，但是两个Boss都太忙，合同签署完成之后就交给各自的助理Proxy去代理完成合同的细节问题的商定。其中两个Boss分别对应客户端和服务端，合同对应服务的接口，两个代表对应两端的Proxy，代表的通信方式则是电话，而代码的通信方式是Binder。
 
 #### ContentProvider
 **ContentProvider的作用**
@@ -368,9 +367,7 @@ Stub中最重要的就是asInterface方法，在这个方法中会判断obj参�
 2.跨进程的数据共享
 
 **ContentProvider数据访问限制**
-android:exported 属性用于指示该服务是否能够被其他应用程序组件调用或跟它交互。如果设置为true，则能够被调用或交互。如果设置为false时，只有同一个应用程序的组件或带有相同用户ID的应用程序才能启动或绑定该服务。
-
-对于需要开放的组件应设置合理的权限，如果只需要对同一个签名的其它应用开放content provider，则可以设置signature级别的权限。
+android:exported 属性用于指示该服务是否能够被其他应用程序组件调用或跟它交互。如果设置为true，则能够被调用或交互。如果设置为false时，只有同一个应用程序的组件或带有相同用户ID的应用程序才能启动或绑定该服务。**对于需要开放的组件应设置合理的权限，如果只需要对同一个签名的其它应用开放content provider，则可以设置signature级别的权限。**
 
 **ContentProvider运行的进程和线程**
 ContentProvider可以在AndroidManifest.xml中配置一个叫做android:multiprocess 的属性，默认值是false，表示ContentProvider是单例的，无论哪个客户端应用的访问都将是同一个ContentProvider对象。如果设为true，系统会为每一个访问该ContentProvider的进程创建一个实例。

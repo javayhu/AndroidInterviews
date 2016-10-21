@@ -30,10 +30,10 @@ private final MyHandler mHandler = new MyHandler(this);
 
 #### Parcelable
 Serializable和Parcelable的区别
-**Serializalbe会使用反射，序列化和反序列化过程需要大量I/O操作。Parcelable自已实现封送和解封（marshalled &unmarshalled）操作不需要用反射，数据也存放在Native内存中，效率要快很多。**
+**Serializalbe会使用反射(用于创建对象)，序列化和反序列化过程需要大量I/O操作。Parcelable自已实现封送和解封（marshalled &unmarshalled）操作不需要用反射，数据也存放在Native内存中，效率要快很多。**
 
 Parcelable和Parcel的区别
-**Parcelable 接口定义在封送/解封送过程中混合和分解对象的契约，Parcelable接口的底层是Parcel容器对象。Parcel类是一种最快的序列化/反序列化机制，专为Android中的进程间通信而设计。该类提供了一些方法来将成员容纳到容器中，以及从容器展开成员。**
+**Parcelable 接口定义在封送/解封送过程中混合和分解对象的契约，Parcelable接口的底层是Parcel容器对象。Parcel类是一种快速的序列化/反序列化机制，专为Android中的进程间通信而设计。该类提供了一些方法来将成员容纳到容器中，以及从容器展开成员。**
 
 Activity之间传递参数时要注意对象的大小，Intent中的Bundle是在使用Binder机制进行数据传递的，能使用的Binder的缓冲区是有大小限制的（有些手机是2M），而一个进程默认有16个binder线程，所以一个线程能占用的缓冲区就更小了（以前做过测试，大约一个线程可以占用128KB），所以当看到“The Binder transaction failed because it was too large.” 这类TransactionTooLargeException异常时就说明传递的参数太大了，需要精简。使用Intent在Activity之间传递List和Bitmap对象是有风险的。
 
@@ -49,8 +49,8 @@ Activity之间传递参数时要注意对象的大小，Intent中的Bundle是在
 即是说，每个getView要在4.76ms内完成工作才会较流畅，但是事实上，每个getView间的调用也会有一定的间隔（有可能是由于handler在处理别的消息），UI的handler处理不好的话，这个间隔也可能会很大（0ms-200ms）。结论就是，留给getView使用的时间应该在4ms之内，如果不能控制在这之内的话，ListView的滑动就会有卡顿的现象。
 
 优化建议：
-1.重用ConvertView;
-2.使用View Holder模式；
+1.重用ConvertView (避免每次都创建ItemView);
+2.使用View Holder模式 (避免每次都inflate View和findViewById)；
 3.使用异步线程加载图片（一般都是直接使用图片库加载，如Glide, Picasso）；
 4.在adapter的getView方法中尽可能的减少逻辑判断，特别是耗时的判断；
 5.避免GC（可以从logcat中查看有无GC的LOG）；
@@ -89,7 +89,7 @@ SharedPreferences的多进程共享数据的替代品[https://github.com/grandce
 
 SQLite每个数据库都是以单个文件（.db）的形式存在，这些数据都是以B-Tree的数据结构形式存储在磁盘上。
 
-使用SQLiteDatabase的insert，delete等方法或者execSQL方法默认都开启了事务，如果操作的顺利完成才会更新.db数据库。事务的实现是依赖于名为rollback journal文件，借助这个临时文件来完成原子操作和回滚功能。在/data/data/<packageName>/databases/目录下看到一个和数据库同名的.db-journal文件。
+使用SQLiteDatabase的insert，delete等方法或者execSQL方法默认都开启了事务，如果操作顺利完成才会更新.db数据库。事务的实现是依赖于名为rollback journal文件，借助这个临时文件来完成原子操作和回滚功能。在/data/data/<packageName>/databases/目录下看到一个和数据库同名的.db-journal文件。
 
 问：如何对SQLite数据库中进行大量的数据插入？
 答：可以通过“**SQLiteStatement+事务**”的方式来提高效率。
@@ -101,23 +101,23 @@ SQLite的同步锁精确到数据库级，粒度比较大，不像别的数据�
 #### Resources
 
 **资源的查找顺序**
-在查找时会先去掉有冲突的资源目录，然后再按MCC、MNC、语言等指定的优先级进行查找，直到确认一个匹配资源。根据屏幕尺寸限定符选择资源时，如果没有更好的匹配资源，则系统将使用专为小于当前屏幕的屏幕而设计的资源。
+在查找时会先去掉有冲突的资源目录，然后再按MCC、MNC、语言等指定的优先级进行查找，直到确认一个匹配资源。**根据屏幕尺寸限定符选择资源时，如果没有更好的匹配资源，则系统将使用专为小于当前屏幕的屏幕而设计的资源。**
 
 MCC 移动国家码，由3为数字组成；MNC 移动网络码，由2位数字组成 ?  
 ![img](images/resource_path.png)
 
 **图片的放置位置问题**
-如果能提供各种dpi的对应资源那是最好，可以达到较好内存使用效果。如果提供的图片资源有限，那么图片资源应该尽量放在**高密度文件夹**下，这样可以节省图片的内存开支。
+如果能提供各种dpi的对应资源那是最好，可以达到较好内存使用效果。**如果提供的图片资源有限，那么图片资源应该尽量放在**高密度文件夹**下，这样可以节省图片的内存开支。**
 
 **res/raw 和 assets 的区别**
 这两个目录下的文件都会被打包进APK，并且不经过任何的压缩处理。
 assets与res/raw不同点在于，assets支持任意深度的子目录，这些文件不会生成任何资源ID，只能使用AssetManager按相对的路径读取文件。如需访问原始文件名和文件层次结构，则可以考虑将某些资源保存在assets目录下。
 
 **drawable-nodpi**
-drawable-nodpi文件夹是一个密度无关的文件夹，放在这里的图片系统就不会对它进行自动缩放，原图片是多大就会实际展示多大。但是要注意一个加载的顺序，drawable-nodpi文件夹是在匹配密度文件夹和更高密度文件夹都找不到的情况下才会去这里查找图片的，因此放在drawable-nodpi文件夹里的图片通常情况下不建议再放到别的文件夹里面。
+**drawable-nodpi文件夹是一个密度无关的文件夹，放在这里的图片系统就不会对它进行自动缩放，原图片是多大就会实际展示多大。**但是要注意一个加载的顺序，**drawable-nodpi文件夹是在匹配密度文件夹和更高密度文件夹都找不到的情况下才会去这里查找图片的，因此放在drawable-nodpi文件夹里的图片通常情况下不建议再放到别的文件夹里面。**
 
 **mipmap 和 drawable 的区别**
-Android对放在mipmap目录的图标会忽略屏幕密度，会去尽量匹配大一点的，然后系统自动对图片进行缩放，从而优化显示和节省资源。
+**Android对放在mipmap目录的图标会忽略屏幕密度，会去尽量匹配大一点的，然后系统自动对图片进行缩放，从而优化显示和节省资源。**
 drawable文件夹是存放一些xml(如selector)和图片，Android会根据设备的屏幕密度(density)自动去对应的drawable文件夹查找匹配的资源文件。
 
 **Resources.updateConfiguration**
@@ -127,16 +127,16 @@ drawable文件夹是存放一些xml(如selector)和图片，Android会根据设�
 推荐阅读[Android官方培训课程中文版](http://hukai.me/android-training-course-in-chinese/index.html)中的Android图像和动画这章的`高效显示Bitmap`这节。
 
 **Bitmap 和 Drawable**
-Bitmap代表的是图片资源在内存中的数据结构，如它的像素数据，长宽等属性都存放在Bitmap对象中。**Bitmap类的构造函数是私有的，只能是通过JNI实例化，系统提供BitmapFactory工厂类给我们从从File、Stream和byte[]创建Bitmap的方式**。
+Bitmap代表的是图片资源在内存中的数据结构，如它的像素数据、长宽等属性都存放在Bitmap对象中。**Bitmap类的构造函数是私有的，只能是通过JNI实例化，系统提供BitmapFactory工厂类从File、Stream和byte[]创建Bitmap的方式**。
 
 Drawable官方文档说明为可绘制物件的一般抽象。View也是可以绘制的，但Drawable与View不同，**Drawable不接受事件，无法与用户进行交互**。我们知道很多UI控件都提供设置Drawable的接口，如ImageView可以通过setImageDrawable(Drawable drawable)设置它的显示，这个drawable可以是来自Bitmap的BitmapDrawable，也可以是其他的如ShapeDrawable。
 
-Drawable是一种抽像，最终实现的方式可以是绘制Bitmap的数据或者图形、Color数据等。
+**Drawable是一种抽像，最终实现的方式可以是绘制Bitmap的数据或者图形、Color数据等。**
 
 **Bitmap优化**
 在Android 3.0之前的版本，Bitmap像素数据存放在Native内存中，而且Nativie内存的释放是不确定的，容易内存溢出而Crash，所以一般我们不使用的图片要调用recycle()。
 从3.0开始，Bitmap像素数据和Bitmap对象一起存放在Dalvik堆内存中（从源代码上看是多了一个byte[] buffer用来存放数据），也就是我们常说的Java Heap内存。
-除了这点改变之外，3.0版本的还增加了一个inBitmap属性（BitmapFactory.Options.inBitmap）。如果设置了这个属性则会重用这个Bitmap的内存从而提升性能。但是这个重用是有条件的，在Android4.4之前只能重用相同大小的Bitmap，Android4.4+则只要比重用Bitmap小即可。
+除了这点改变之外，**3.0版本的还增加了一个inBitmap属性（BitmapFactory.Options.inBitmap）。如果设置了这个属性则会重用这个Bitmap的内存从而提升性能。但是这个重用是有条件的，在Android4.4之前只能重用相同大小的Bitmap，Android4.4+则只要比重用Bitmap小即可。**
 
 其他优化手段：
 1.使用采样率（inSampleSize），如果最终要压缩图片，如显示缩略图，我们并不需要加载完整的图片数据，只需要按一定的比例加载即可；
@@ -144,10 +144,10 @@ Drawable是一种抽像，最终实现的方式可以是绘制Bitmap的数据或
 
 #### AsyncTask
 
-AnsycTask执行任务时，内部会创建一个进程作用域的线程池来管理要运行的任务，也就在调用了AsyncTask.execute()之后，AsyncTask会把任务交给线程池，由线程池来管理创建Thread和运行Therad。最后和UI打交道就交给Handler去处理了。
+AnsycTask执行任务时，内部会创建一个**进程作用域的线程池**来管理要运行的任务，也就在调用了AsyncTask.execute()之后，AsyncTask会把任务交给线程池，由线程池来管理创建Thread和运行Therad。最后和UI打交道就交给Handler去处理了。
 
 问：线程池可以同时执行多少个TASK？
-答：Android 3.0之前（1.6之前的版本不再关注）规定线程池的核心线程数为5个（corePoolSize），线程池总大小为128（maximumPoolSize），还有一个缓冲队列（sWorkQueue，缓冲队列可以放10个任务），当我们尝试去添加第139个任务时，程序就会崩溃。当线程池中的数量大于corePoolSize，缓冲队列已满，并且线程池中的数量小于maximumPoolSize，将会创建新的线程来处理被添加的任务。
+答：Android 3.0之前（1.6之前的版本不再关注）规定线程池的核心线程数为5个（corePoolSize），线程池总大小为128（maximumPoolSize），还有一个缓冲队列（sWorkQueue，缓冲队列可以放10个任务），当我们尝试去添加第139个任务时，程序就会崩溃。**当线程池中的数量大于corePoolSize，缓冲队列已满，并且线程池中的数量小于maximumPoolSize，将会创建新的线程来处理被添加的任务。** （不放在线程池中管理?）
 
 问：多个AsyncTask任务是串行还是并行？
 答：从Android 1.6到2.3(Gingerbread) AsyncTask是并行的，即上面我们提到的有5个核心线程的线程池（ThreadPoolExecutor）负责调度任务。从Android 3.0开始，Android团队又把AsyncTask改成了串行，默认的Executor被指定为SERIAL_EXECUTOR。
@@ -238,12 +238,12 @@ private void keepAlive() {
 }
 ```
 
-③AndroidManifest.xml中配置persistent属性（persistent的App会被优先照顾，进程优先级设置为PERSISTENT_PROC_ADJ=-12）
+③AndroidManifest.xml中配置persistent属性（persistent的App会被优先照顾，进程优先级设置为**PERSISTENT_PROC_ADJ=-12**）
 
 
 #### 线程
 
-线程是CPU调度的基本单元，一个应用都有一个主线程负责处理消息。一个应用启动后，至少会有3个线程，一个主线程（UI线程）和2个Binder线程。Zygote进程（APK所在的进程是由Zygote进程Fork出来的）还会产生有一些Daemon线程如：ReferenceQueueDaemon、FinalizerDaemon、FinalizerWatchdogDaemon、HeapTaskDaemon，从名字大家也可以对它们的用途猜出一二。
+线程是CPU调度的基本单元，每个应用都有一个主线程负责处理消息。一个应用启动后，至少会有3个线程，一个主线程（UI线程）和2个Binder线程。Zygote进程（APK所在的进程是由Zygote进程Fork出来的）还会产生有一些Daemon线程如：ReferenceQueueDaemon、FinalizerDaemon、FinalizerWatchdogDaemon、HeapTaskDaemon，从名字大家也可以对它们的用途猜出一二。
 
 **wait/notify/notifyAll**
 wait()的作用是让当前线程进入等待状态，同时，wait()也会让当前线程释放它所持有的锁。而notify()和notifyAll()的作用，则是唤醒当前对象上的等待线程；notify()是唤醒单个线程，而notifyAll()是唤醒所有的线程。
@@ -253,6 +253,8 @@ wait()的作用是让当前线程进入等待状态，同时，wait()也会让�
 wait()是让线程由“运行状态”进入到“等待(阻塞)状态”，而yield()是让线程由“运行状态”进入到“就绪状态”，从而让其它具有相同优先级的等待线程获取执行权；但是，并不能保证在当前线程调用yield()之后，其它具有相同优先级的线程就一定能获得执行权。
 (2)线程是否释放锁
 wait()会使线程释放它所持有对象的同步锁，而yield()方法不会释放锁。
+
+**sleep和wait这两个函数被调用之后线程都应该放弃执行权，不同的是sleep不释放锁而wait的话是释放锁。**直白的意思是一个线程调用sleep之后进入了阻塞状态中的其他阻塞，它的意思就是当sleep状态超时、join等待线程终止或者超时，线程重新转入可运行(runnable)状态。而wait是不同的，在释放执行权之后wait也把锁释放了，进入了线程等待阻塞，它要运行的话还是要和其他的线程去竞争锁，之后才可以获得执行权。
 
 **CountDownLatch**
 CountDownLatch是通过一个计数器来实现的，计数器的初始值为线程的数量。每当一个线程完成了自己的任务后，计数器的值就会减1。当计数器值到达0时，它表示所有的线程已经完成了任务，然后在闭锁上等待的线程就可以恢复执行任务。CountDownLatch的应用场景是主线程希望在负责启动框架服务的线程已经启动所有的框架服务之后再执行。
@@ -274,8 +276,8 @@ CountDownLatch是通过一个计数器来实现的，计数器的初始值为线
 部分摘录：
 1. **管道：**在创建时分配一个page大小的内存，缓存区大小比较有限；
 2. **消息队列**：信息复制两次，额外的CPU消耗；不合适频繁或信息量大的通信；
-3. **共享内存**：无须复制，共享缓冲区直接付附加到进程虚拟地址空间，速度快；但进程间的同步问题操作系统无法实现，必须各进程利用同步工具解决；
-4. **套接字**：作为更通用的接口，传输效率低，主要用于不通机器或跨网络的通信；
+3. **共享内存**：无须复制，共享缓冲区直接附加到进程虚拟地址空间，速度快；但进程间的同步问题操作系统无法实现，必须各进程利用同步工具解决；
+4. **套接字**：作为更通用的接口，传输效率低，主要用于不同机器或跨网络的通信；
 5. **信号量**：常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。
 6. **信号**: 不适用于信息交换，更适用于进程中断控制，比如非法内存访问，杀死某个进程等；
 
