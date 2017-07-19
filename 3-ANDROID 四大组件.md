@@ -189,7 +189,7 @@ sendBroadcast，无序广播，会异步的发送给所有的Receiver，接收�
 **Ordered broadcasts**
 sendOrderedBroadcast，有序广播，广播会先发送给优先级高的Receiver，而且这个Receiver有权决定是继续发送到下一个Receiver还是直接终止广播。
 
-BroadcastReceiver优先级的设置是通过receiver的IntentFilter中的android:process 属性来设置，数值越大优先级越高。
+BroadcastReceiver优先级的设置是通过receiver的IntentFilter中的android:priority 属性来设置，数值越大优先级越高。
 
 ```
 <receiver android:name="xxx">
