@@ -361,34 +361,34 @@ Stub中最重要的就是asInterface方法，在这个方法中会判断obj参�
 
 理解AIDL的白话：两个公司打算合作，但是两个Boss都太忙，合同签署完成之后就交给各自的助理Proxy去代理完成合同的细节问题的商定。其中两个Boss分别对应客户端和服务端，合同对应服务的接口，两个代表对应两端的Proxy，代表的通信方式则是电话，而代码的通信方式是Binder。
 
-#### ContentProvider
-**ContentProvider的作用**
-1.封装数据：对数据进行封装，提供统一的接口
-2.跨进程的数据共享
+#### ContentProvider    
+**ContentProvider的作用**    
+1.封装数据：对数据进行封装，提供统一的接口    
+2.跨进程的数据共享    
 
-**ContentProvider数据访问限制**
+**ContentProvider数据访问限制**    
 android:exported 属性用于指示该服务是否能够被其他应用程序组件调用或跟它交互。如果设置为true，则能够被调用或交互。如果设置为false时，只有同一个应用程序的组件或带有相同用户ID的应用程序才能启动或绑定该服务。**对于需要开放的组件应设置合理的权限，如果只需要对同一个签名的其它应用开放content provider，则可以设置signature级别的权限。**
 
-**ContentProvider运行的进程和线程**
+**ContentProvider运行的进程和线程**    
 ContentProvider可以在AndroidManifest.xml中配置一个叫做android:multiprocess 的属性，默认值是false，表示ContentProvider是单例的，无论哪个客户端应用的访问都将是同一个ContentProvider对象。如果设为true，系统会为每一个访问该ContentProvider的进程创建一个实例。
 
-问：每个ContentProvider的操作是在哪个线程中运行的呢（其实我们关心的是UI线程和工作线程）？比如我们在UI线程调用getContentResolver().query查询数据，而当数据量很大时（或者需要进行较长时间的计算）会不会阻塞UI线程呢？
+问：每个ContentProvider的操作是在哪个线程中运行的呢（其实我们关心的是UI线程和工作线程）？比如我们在UI线程调用getContentResolver().query查询数据，而当数据量很大时（或者需要进行较长时间的计算）会不会阻塞UI线程呢？    
 答：**ContentProvider和调用者在同一个进程，ContentProvider的方法（query/insert/update/delete等）和调用者在同一线程中；**
 **ContentProvider和调用者在不同的进程，ContentProvider的方法会运行在它自身所在进程的一个Binder线程中。**
 
-问：ContentProvider是如何在不同应用程序之间传输数据的？
+问：ContentProvider是如何在不同应用程序之间传输数据的？    
 答：**ContentResolver虽然是通过Binder进程间通信机制打通了应用程序之间共享数据的通道，但Content Provider组件在不同应用程序之间传输数据是基于匿名共享内存机制来实现的。**
 
 **一个应用进程有16个Binder线程去和远程服务进行交互，而每个线程可占用的缓存空间是128KB这样，超过会报异常。**
 
 
-#### 参考资料
-1.《Android开发群英传》
-2.《Android开发进阶：从小工到专家》
-3.《Android开发艺术探索》
-4.[Android后台服务 Service](http://my.oschina.net/wangjunhe/blog/113286)
-5.[Android组件 Service研究](http://android.jobbole.com/84450/)
-6.[Android面试一天一题](http://www.jianshu.com/p/7a7db9f8692d)
-7.[用广播来更新UI界面好吗](http://www.jianshu.com/p/df7af437e766)
-8.[Android广播接收器 BroadcastReceiver](http://uule.iteye.com/blog/1707341)
+#### 参考资料   
+1.《Android开发群英传》   
+2.《Android开发进阶：从小工到专家》   
+3.《Android开发艺术探索》   
+4.[Android后台服务 Service](http://my.oschina.net/wangjunhe/blog/113286)   
+5.[Android组件 Service研究](http://android.jobbole.com/84450/)   
+6.[Android面试一天一题](http://www.jianshu.com/p/7a7db9f8692d)   
+7.[用广播来更新UI界面好吗](http://www.jianshu.com/p/df7af437e766)   
+8.[Android广播接收器 BroadcastReceiver](http://uule.iteye.com/blog/1707341)   
 
