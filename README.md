@@ -5,6 +5,7 @@
 整理的资料大部分都来源于书籍和网络，很多都已经标明了原文出处，若仍有侵权，请通知我，我立即道歉并删除。
 
 推荐资料和书籍    
+
 0. [Android官方培训课程中文版](http://hukai.me/android-training-course-in-chinese/index.html)：熟悉Android开发基础知识      
 1. Android群英传：[(在线版读书笔记点这里)](http://hujiaweibujidao.github.io/blog/2015/11/29/Android-Heroes-Reading-Notes/)    
 2. Android开发艺术探索：[(在线版读书笔记点这里)](http://hujiaweibujidao.github.io/blog/2015/12/05/Art-of-Android-Development-Reading-Notes/)    
