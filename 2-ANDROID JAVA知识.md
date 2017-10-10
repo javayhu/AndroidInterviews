@@ -31,7 +31,9 @@ static final修饰的字段在Javac时生成ConstantValue属性，在类加载�
 **Java虚拟机**
 
 参考资料    
-[深入Java虚拟机系列](http://www.importnew.com/19946.html)
+[深入Java虚拟机系列](http://www.importnew.com/19946.html)  
+[深入探讨Java类加载器](https://www.ibm.com/developerworks/cn/java/j-lo-classloader/)  
+[插件化中 Classloader 的加载 dex 分析](http://solart.cc/2016/11/16/plugin_classloader/)
 
 **重要的类和代码**
 
