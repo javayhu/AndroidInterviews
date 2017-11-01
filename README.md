@@ -31,3 +31,7 @@ PPPPS：为了方便阅读，我已经将这4份总结转成了排版好的PDF�
 [邮箱: hujiawei090807@gmail.com](mailto:hujiawei090807@gmail.com)    
 [博客: hujiaweibujidao.github.io](https://hujiaweibujidao.github.io)  
 [小专栏: https://xiaozhuanlan.com/u/javayhu](https://xiaozhuanlan.com/u/javayhu)
+
+**下面的二维码是我个人维护的微信公众号“潇涧技术专栏”，会不定期分享移动开发的核心技术，欢迎关注！**
+
+![img](http://owvzfqno0.bkt.clouddn.com/qrcode_weixin.jpg)
